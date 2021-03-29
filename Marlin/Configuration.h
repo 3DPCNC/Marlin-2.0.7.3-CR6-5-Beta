@@ -458,7 +458,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 300
+#define HEATER_0_MAXTEMP 350
 #define HEATER_1_MAXTEMP 300
 #define HEATER_2_MAXTEMP 300
 #define HEATER_3_MAXTEMP 300
@@ -492,9 +492,16 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  18.82
-    #define DEFAULT_Ki  1.45
-    #define DEFAULT_Kd  61.11
+    /*
+    #define DEFAULT_Kp  18.9486//16.4380//18.82
+    #define DEFAULT_Ki  1.3902//1.1715//1.45
+    #define DEFAULT_Kd  64.5697//57.6624//61.11
+    */
+    
+    #define DEFAULT_Kp 16.9740
+    #define DEFAULT_Ki 1.2829
+    #define DEFAULT_Kd 56.1456
+    
   #endif
 #endif // PIDTEMP
 
@@ -544,7 +551,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 5 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -772,7 +779,7 @@
  *   M204 T    Travel Acceleration
  */
 #define DEFAULT_ACCELERATION          1200    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  10000    // E acceleration for retracts
+#define DEFAULT_RETRACT_ACCELERATION  5000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
@@ -797,7 +804,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    15.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    9.0  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -807,13 +814,15 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.066 // (mm) Distance from real junction edge
-  #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
-                                      // for small segments (< 1mm) with large junction angles (> 135°)
+  #define JUNCTION_DEVIATION_MM 0.0666      // (mm) Distance from real junction edge
+  #define JD_HANDLE_SMALL_SEGMENTS              // Use curvature estimation instead of just the junction angle
+                                                // for small segments (< 1mm) with large junction angles (> 135°)
                                       
                   /*
-                  nozzle dia * jerk^2 / print acceleration
-                  0.8        * 10^2   / 1200
+                  nozzle dia  * jerk^2  / print acceleration
+    0.06666666  = 0.8         * 10^2    / 1200
+    0.09257142  = 0.8         * 9^2     / 700
+    0.06480000  = 0.8         * 9^2     / 1000
                   */
 #endif
 
@@ -1353,7 +1362,7 @@
   // The height can be set with M420 Z<height>
   #define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-    #define DEFAULT_LEVELING_FADE_HEIGHT 5.0 // (mm) Default fade height.
+    #define DEFAULT_LEVELING_FADE_HEIGHT 15.0 // (mm) Default fade height.
   #endif
 
   // For Cartesian machines, instead of dividing moves on mesh boundaries,
