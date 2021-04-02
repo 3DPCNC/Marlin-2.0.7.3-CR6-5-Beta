@@ -493,7 +493,7 @@
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
-#define ENDSTOP_INTERRUPTS_FEATURE
+//#define ENDSTOP_INTERRUPTS_FEATURE
 
 /**
  * Endstop Noise Threshold
@@ -587,7 +587,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define CLASSIC_JERK
+//#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
@@ -601,7 +601,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    15.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    10.0  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -611,7 +611,7 @@
  *   https://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.0366      // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.08      // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS              // Use curvature estimation instead of just the junction angle
                                                 // for small segments (< 1mm) with large junction angles (> 135°)
                                       
@@ -631,7 +631,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 
 //===========================================================================
@@ -849,11 +849,11 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  7 // Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE     7 // Z Clearance between multiple probes
-#define Z_AFTER_PROBING           15 // Z position after probing is done
+#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
+#define Z_AFTER_PROBING           10 // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT          -1 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -1678,7 +1678,7 @@
 //  M300 S<frequency Hz> P<duration ms>
 //
 #define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
-#define LCD_FEEDBACK_FREQUENCY_HZ 5000
+#define LCD_FEEDBACK_FREQUENCY_HZ 1000
 
 
 //=============================================================================
